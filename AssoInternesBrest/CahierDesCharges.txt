@@ -1,0 +1,160 @@
+ 
+
+CAHIER DES CHARGES 
+
+ 
+
+──────────────────────────────────────── 
+
+ 
+
+Site internet du Syndicat des Internes de Brest 
+
+ 
+
+V1 
+1. Objectifs du site 
+
+Principal 
+
+Centraliser l’info utile aux internes : actus syndicales, infos pratiques sur l’internat, guides, contacts. 
+
+Permettre la diffusion d’actualités et d’événements (AG, soirées, actions syndicales). 
+
+Proposer un espace de ressources documentaires (fiches pratiques, modèles de courrier, textes réglementaires). 
+
+Secondaire 
+
+Faciliter l’accueil des nouveaux internes qui débarquent à Brest (logement, transports, loisirs, stages). 
+
+Renforcer la visibilité du syndicat sur Google & co. 
+
+2. Arborescence du site 
+
+2.1. Page d’accueil 
+
+Bannière visuelle (logo, nom, baseline). 
+
+Catch visuel sur les « Événements à venir ». 
+
+➤ Icônes pour 1 à 3 événements ? Un agenda du mois ? Les deux ? 
+
+Liens vers les réseaux sociaux. 
+
+Accès rapide aux rubriques clés (guide du nouvel interne, contact, adhésion). 
+
+Encart « recherche » (utile ? souvent je trouve rien avec ces outils…) 
+
+Bandeau « Actualités récentes » : 3-4 derniers articles publiés (si gens motivés à «écrire »..) 
+
+2.2. Qui sommes-nous ? 
+
+Présentation du syndicat 
+
+Présentation du bureau : photo, nom, fonction, +/- contact. 
+
+Affiliations et partenaires (ISNI, La Médicale, etc.). 
+
+2.3. Adhésion 
+
+Visible directement dans la barre de navigation (accès rapide, bien en évidence). 
+
+Expliquer à quoi sert l’adhésion 
+
+Formulaire d’adhésion. 
+
+➤ Si on peut faire ça en ligne directement sur le site, ce serait top ! Mais faut gérer le paiement, la sécurité… À discuter ++. 
+
+➤ Et pour les cotisations, on fait comment ? HelloAsso ? Virement ? Aucune idée. 
+
+2.4. Contact 
+
+Formulaire de contact général. 
+
+Mails ou numéros spécifiques. 
+
+Liens vers les réseaux sociaux (Facebook, Instagram). 
+
+Adresse postale du syndicat. 
+
+2.5. Événements 
+
+Calendrier des événements à venir, nombre de places restantes. 
+
+Cliquer sur un événement = fiche détaillée. 
+
+➤ Sur la même page ? En mode déroulant ? Ce qui est le plus fluide. 
+
+Si nombre de places limité, l’afficher directement sur le calendrier. 
+
+Infos de l’événement + possibilité de s’inscrire. 
+
+➤ Incrustation HelloAsso ? Inscription directement sur le site ? À voir ce qui est le plus simple ou secure 
+
+Archive des événements passés. 
+
+➤ Sur 1 an ? 2 ans ? Pas du tout ? 
+
+2.6. Guide du nouvel interne 
+
+Section spécifique, à remplir au cours du prochain semestre. Doit être très facilement éditable. 
+
+Infos pratiques 
+
+Présentation des terrains de stage : CHU, hôpitaux périphériques, cabinets de MSU (voir avec MiG ?) 
+
+Démarches administratives 
+
+Conseils et bons plans locaux 
+
+Contact si besoin d’aide 
+
+FAQ. 
+
+➤ FAQ ouverte ? Éditable facilement par le bureau ? 
+
+2.7. Ressources et documents 
+
+Textes réglementaires relatifs à l’internat (statut, temps de travail, gardes, repos de sécurité). 
+
+Modèles de courriers (réclamations, demandes, signalements). 
+
+➤ Fiches thématiques PDF ? Si temps, pas la prio 
+
+Contact si besoin d’aide. 
+
+2.8. Actualités / Blog 
+
+Section pour publier des articles (vie syndicale, vie étudiante, etc.). 
+
+➤ Faut que des gens soient chauds pour écrire. Si personne n’est motivé, on peut laisser cette section en veille et l’activer plus tard. 
+
+3. Fonctionnalités 
+
+3.1. CMS 
+
+Objectif principal : qu’on puisse tout modifier facilement, même pour des newbies en informatique. 
+
+Interface en français 
+
+Édition facile des pages et des contenus (créer un événement, ajouter une fiche pratique, modifier l’organigramme, etc.), 
+
+Droits différenciés selon les rôles : Admin, bureau restreint, bureau, membre 
+
+3.2. Ergonomie 
+
+➤ PC only ? Ou accessible smartphone aussi ? Il vaut mieux y penser dès le départ ou on peut adapter après ? 
+
+3.3. Sécurité 
+
+Sauvegardes régulières. 
+
+➤ Hebdo ? Mensuelles ? 
+
+Un minimum de protection contre les hacks (sans devenir la NASA non plus) 
+
+Demander le minimum d’informations personnelles aux utilisateurs (nom, prénom, mail). 
+
+4. Visuel 
+
+On a déjà un logo. L’idée serait d’adapter une charte graphique dans le même thème (couleurs, typos etc..) 

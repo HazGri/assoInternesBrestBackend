@@ -11,8 +11,7 @@ namespace AssoInternesBrest.API.Repositories
         public async Task<IEnumerable<Event>> GetAllAsync()
         {
             return await _context
-                .Events
-                .Include(e => e.Image)
+                .Events.Include(e => e.Image)
                 .Where(e => e.IsPublished)
                 .OrderBy(e => e.StartDate)
                 .ToListAsync();
@@ -20,8 +19,8 @@ namespace AssoInternesBrest.API.Repositories
 
         public async Task<Event?> GetBySlugAsync(string slug)
         {
-            return await _context.Events
-                .Include(e => e.Image)
+            return await _context
+                .Events.Include(e => e.Image)
                 .FirstOrDefaultAsync(e => e.Slug == slug);
         }
 
@@ -39,7 +38,7 @@ namespace AssoInternesBrest.API.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var eventEntity = await _context.Events.FindAsync(id);
 
@@ -47,7 +46,9 @@ namespace AssoInternesBrest.API.Repositories
             {
                 _context.Events.Remove(eventEntity);
                 await _context.SaveChangesAsync();
+                return true;
             }
+            return false;
         }
 
         public async Task<bool> SlugExistsAsync(string slug)

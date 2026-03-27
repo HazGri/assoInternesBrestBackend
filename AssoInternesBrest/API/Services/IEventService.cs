@@ -13,6 +13,6 @@ namespace AssoInternesBrest.API.Services
 
         Task UpdateEventAsync(Event entity);
 
-        Task DeleteEventAsync(Guid id);
+        Task<bool> DeleteEventAsync(Guid id);
     }
 }

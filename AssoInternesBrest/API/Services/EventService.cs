@@ -32,7 +32,6 @@ namespace AssoInternesBrest.API.Services
         {
             var entity = _mapper.Map<Event>(dto);
 
-
             entity.Id = Guid.NewGuid();
             entity.CreatedAt = DateTime.UtcNow;
             entity.UpdatedAt = DateTime.UtcNow;
@@ -57,9 +56,10 @@ namespace AssoInternesBrest.API.Services
             await _repository.UpdateAsync(entity);
         }
 
-        public async Task DeleteEventAsync(Guid id)
+        public async Task<bool> DeleteEventAsync(Guid id)
         {
-            await _repository.DeleteAsync(id);
+            bool isDelete = await _repository.DeleteAsync(id);
+            return isDelete;
         }
 
         private async Task<string> GenerateUniqueSlug(string title)

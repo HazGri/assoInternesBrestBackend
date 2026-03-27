@@ -40,5 +40,16 @@ namespace AssoInternesBrest.API.Controllers
                 createdEvent
             );
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteEvent(Guid id)
+        {
+            var isDelete = await _eventService.DeleteEventAsync(id);
+            if (isDelete)
+            {
+                return Ok(200);
+            }
+            return NoContent();
+        }
     }
 }

@@ -89,11 +89,11 @@ Si nombre de places limité, l’afficher directement sur le calendrier.
 
 Infos de l’événement + possibilité de s’inscrire. 
 
-➤ Incrustation HelloAsso ? Inscription directement sur le site ? À voir ce qui est le plus simple ou secure 
+➤ Incrustation HelloAsso ?  
 
 Archive des événements passés. 
 
-➤ Sur 1 an ? 2 ans ? Pas du tout ? 
+➤ Sur 1 an ? 2 ans ? 
 
 2.6. Guide du nouvel interne 
 
@@ -141,11 +141,6 @@ Interface en français
 
 Droits différenciés selon les rôles : Admin, bureau restreint, bureau, membre 
 
-3.2. Ergonomie 
-
-➤ PC only ? Ou accessible smartphone aussi ? Il vaut mieux y penser dès le départ ou on peut adapter après ? 
-
-3.3. Sécurité 
 
 Sauvegardes régulières. 
 
@@ -155,6 +150,24 @@ Un minimum de protection contre les hacks (sans devenir la NASA non plus)
 
 Demander le minimum d’informations personnelles aux utilisateurs (nom, prénom, mail). 
 
-4. Visuel 
 
-On a déjà un logo. L’idée serait d’adapter une charte graphique dans le même thème (couleurs, typos etc..) 
+Fonctionnalité                | Visiteur | Membre | Bureau | Admin
+------------------------------|----------|--------|--------|------
+Voir le site                  |    ✅    |   ✅   |   ✅   |  ✅
+Voir événements               |    ✅    |   ✅   |   ✅   |  ✅
+Créer événement/articles      |    ❌    |   ❌   |   ✅   |  ✅
+Modifier événement/articles   |    ❌    |   ❌   |   ✅   |  ✅
+Gérer pages                   |    ❌    |   ❌   |   ✅   |  ✅
+Modifier Guide nouvel interne |    ❌    |   ❌   |   ✅   |  ✅
+Ressources                    |    ✅    |   ✅   |   ✅   |  ✅
+Contact                       |    ✅    |   ✅   |   ✅   |  ✅
+Accès back-office             |    ❌    |   ❌   |   ✅   |  ✅
+Gérer utilisateurs            |    ❌    |   ❌   |   ❌   |  ✅
+
+
+Visiteur ⇒ TarifPlein pour les evenements
+
+Membre(adhérent) ⇒ TarifAdhérent pour les evenements
+
+Aujourd'hui tout les Membres (adhérent) sont inscrits sur un tableau excel. Il faut trouver un moyen de leur créer un compte à ceux la. Ajouter un formulaire pour ajouter un nouvel adhérent.
+

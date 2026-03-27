@@ -26,8 +26,4 @@
     <Folder Include="uploads\events\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AssoInternesBrest.Tests\AssoInternesBrest.Tests.csproj" />
-  </ItemGroup>
-
 </Project>

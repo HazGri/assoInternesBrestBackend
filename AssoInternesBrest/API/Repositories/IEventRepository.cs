@@ -11,7 +11,7 @@ namespace AssoInternesBrest.API.Repositories
         Task<Event> AddAsync(Event entity);
 
         Task UpdateAsync(Event entity);
-        Task DeleteAsync(Guid id);
+        Task<bool> DeleteAsync(Guid id);
         Task<bool> SlugExistsAsync(string slug);
     }
 }

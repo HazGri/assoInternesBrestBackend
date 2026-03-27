@@ -91,7 +91,4 @@ Tu dois :
 
 ## 💡 Pistes de démarrage
 [1 ou 2 questions socratiques pour m'aider à commencer sans me donner la solution]
-
-## 🤔 Ce que j'ai appris
-[À remplir par moi après avoir terminé le ticket]
 ```

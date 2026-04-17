@@ -9,6 +9,8 @@ namespace AssoInternesBrest.API.Services
 
         Task<EventDto?> GetEventBySlugAsync(string slug);
 
+        Task<EventDto?> GetEventByIdAsync(Guid id);
+
         Task<EventDto> CreateEventAsync(CreateEventDto entity);
 
         Task<EventDto?> UpdateEventAsync(Guid id, UpdateEventDto dto);

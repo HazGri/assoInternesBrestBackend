@@ -25,6 +25,14 @@ namespace AssoInternesBrest.API.Services
             return _mapper.Map<EventDto>(entity);
         }
 
+        public async Task<EventDto?> GetEventByIdAsync(Guid id)
+        {
+            Event? entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+                return null;
+            return _mapper.Map<EventDto>(entity);
+        }
+
         public async Task<EventDto> CreateEventAsync(CreateEventDto dto)
         {
             Event entity = _mapper.Map<Event>(dto);

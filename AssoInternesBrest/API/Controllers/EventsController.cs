@@ -39,6 +39,21 @@ namespace AssoInternesBrest.API.Controllers
             );
         }
 
+        [HttpGet("{id:guid}/registration")]
+        public async Task<ActionResult<RegistrationDto>> GetRegistration(Guid id)
+        {
+            EventDto? eventDto = await _eventService.GetEventByIdAsync(id);
+            if (eventDto == null)
+                return NotFound();
+
+            RegistrationDto registration = new()
+            {
+                HelloAssoUrl = eventDto.HelloAssoUrl,
+                HasRegistration = eventDto.HelloAssoUrl != null
+            };
+            return Ok(registration);
+        }
+
         [HttpPut("{id}")]
         [Authorize(Policy = "BureauOrAdmin")]
         public async Task<ActionResult<EventDto>> UpdateEvent(Guid id, UpdateEventDto dto)

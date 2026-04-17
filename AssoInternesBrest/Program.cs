@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using AssoInternesBrest.API.Data;
 using AssoInternesBrest.API.Mappings;
@@ -37,9 +38,12 @@ string jwtSecret = builder.Configuration["Jwt:Secret"]!;
 string jwtIssuer = builder.Configuration["Jwt:Issuer"]!;
 string jwtAudience = builder.Configuration["Jwt:Audience"]!;
 
+JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
@@ -49,7 +53,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidAudience = jwtAudience,
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero
+            ClockSkew = TimeSpan.Zero,
+            NameClaimType = JwtRegisteredClaimNames.Sub,
+            RoleClaimType = System.Security.Claims.ClaimTypes.Role
         };
     });
 
@@ -57,7 +63,12 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("BureauOrAdmin", policy => policy.RequireRole("Bureau", "Admin"))
     .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IEventService, EventService>();

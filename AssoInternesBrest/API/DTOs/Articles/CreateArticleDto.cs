@@ -11,6 +11,11 @@ namespace AssoInternesBrest.API.DTOs.Articles
         [Required]
         public string Content { get; set; } = null!;
 
+        [MaxLength(300)]
+        public string? Excerpt { get; set; }
+
         public bool IsPublished { get; set; } = false;
+
+        public Guid? ImageId { get; set; }
     }
 }

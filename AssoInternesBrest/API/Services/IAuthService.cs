@@ -8,5 +8,7 @@ namespace AssoInternesBrest.API.Services
         Task<User> CreateUserAsync(string email, string firstName, string lastName, UserRole role);
         Task<bool> ActivateAsync(string token, string newPassword);
         Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword);
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<bool> DeleteUserAsync(Guid userId, Guid currentUserId);
     }
 }

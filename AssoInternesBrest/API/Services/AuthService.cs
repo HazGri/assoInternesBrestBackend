@@ -48,9 +48,17 @@ namespace AssoInternesBrest.API.Services
 
             await _userRepository.AddAsync(user);
 
-            string activationUrl = $"{_configuration["App:BaseUrl"]}/activate?token={user.InvitationToken}";
-            string body = $"Bonjour {firstName},\n\nVotre compte a été créé sur le site de l'Asso Internes Brest.\n\nCliquez sur le lien suivant pour définir votre mot de passe (valable 72h) :\n\n{activationUrl}\n\nL'équipe Asso Internes Brest";
-            await _emailService.SendAsync(email, "Activation de votre compte — Asso Internes Brest", body);
+            try
+            {
+                string activationUrl = $"{_configuration["App:BaseUrl"]}/activate?token={user.InvitationToken}";
+                string body = $"Bonjour {firstName},\n\nVotre compte a été créé sur le site d'Internes de Breizh.\n\nCliquez sur le lien suivant pour définir votre mot de passe (valable 72h) :\n\n{activationUrl}\n\nL'équipe Internes de Breizh";
+                await _emailService.SendAsync(email, "Activation de votre compte — Internes de Breizh", body);
+            }
+            catch
+            {
+                await _userRepository.DeleteAsync(user);
+                throw new InvalidOperationException("EMAIL_SEND_FAILED");
+            }
 
             return user;
         }
@@ -80,6 +88,24 @@ namespace AssoInternesBrest.API.Services
 
             user.PasswordHash = _passwordService.HashPassword(newPassword);
             await _userRepository.UpdateAsync(user);
+            return true;
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await _userRepository.GetAllAsync();
+        }
+
+        public async Task<bool> DeleteUserAsync(Guid userId, Guid currentUserId)
+        {
+            if (userId == currentUserId)
+                throw new InvalidOperationException("SELF_DELETE_FORBIDDEN");
+
+            User? user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+                return false;
+
+            await _userRepository.DeleteAsync(user);
             return true;
         }
     }

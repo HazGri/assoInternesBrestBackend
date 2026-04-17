@@ -46,7 +46,9 @@ namespace AssoInternesBrest.API.Services
 
             article.Title = dto.Title;
             article.Content = dto.Content;
+            article.Excerpt = dto.Excerpt;
             article.IsPublished = dto.IsPublished;
+            article.ImageId = dto.ImageId;
             article.UpdatedAt = DateTime.UtcNow;
 
             await _repository.UpdateAsync(article);

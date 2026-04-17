@@ -12,6 +12,7 @@ namespace AssoInternesBrest.API.Repositories
         {
             return await _context.Articles
                 .Include(a => a.Author)
+                .Include(a => a.Image)
                 .Where(a => a.IsPublished)
                 .OrderByDescending(a => a.CreatedAt)
                 .ToListAsync();
@@ -21,6 +22,7 @@ namespace AssoInternesBrest.API.Repositories
         {
             return await _context.Articles
                 .Include(a => a.Author)
+                .Include(a => a.Image)
                 .FirstOrDefaultAsync(a => a.Slug == slug);
         }
 
@@ -28,6 +30,7 @@ namespace AssoInternesBrest.API.Repositories
         {
             return await _context.Articles
                 .Include(a => a.Author)
+                .Include(a => a.Image)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 

@@ -6,6 +6,8 @@ namespace AssoInternesBrest.API.Repositories
     {
         Task<IEnumerable<Event>> GetAllAsync();
 
+        Task<Event?> GetByIdAsync(Guid id);
+
         Task<Event?> GetBySlugAsync(string slug);
 
         Task<Event> AddAsync(Event entity);

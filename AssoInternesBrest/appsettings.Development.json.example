@@ -1,0 +1,34 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=<neon-host>;Database=<db>;Username=<user>;Password=<password>;SSL Mode=Require;Trust Server Certificate=true"
+  },
+  "Jwt": {
+    "Secret": "<random-32-or-more-characters>",
+    "ExpirationHours": 24,
+    "Issuer": "AssoInternesBrest",
+    "Audience": "AssoInternesBrest"
+  },
+  "Smtp": {
+    "Host": "smtp-relay.brevo.com",
+    "Port": "587",
+    "Username": "<brevo-smtp-login>",
+    "Password": "<brevo-smtp-key>",
+    "FromEmail": "<verified-sender-email>",
+    "FromName": "Internes de Breizh"
+  },
+  "App": {
+    "BaseUrl": "http://localhost:5173"
+  },
+  "InitialAdmin": {
+    "Email": "<first-admin-email>",
+    "Password": "<temporary-password>",
+    "FirstName": "Admin",
+    "LastName": "Système"
+  }
+}

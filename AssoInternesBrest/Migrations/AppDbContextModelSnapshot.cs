@@ -22,6 +22,110 @@ namespace AssoInternesBrest.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AssoInternesBrest.API.Entities.AppSetting", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Key");
+
+                    b.ToTable("AppSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Key = "contact_email",
+                            Value = "contact@asso-internes-brest.fr"
+                        });
+                });
+
+            modelBuilder.Entity("AssoInternesBrest.API.Entities.Article", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Excerpt")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("AssoInternesBrest.API.Entities.BureauMember", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("BureauMembers");
+                });
+
             modelBuilder.Entity("AssoInternesBrest.API.Entities.Event", b =>
                 {
                     b.Property<Guid>("Id")
@@ -43,6 +147,9 @@ namespace AssoInternesBrest.Migrations
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("HelloAssoUrl")
+                        .HasColumnType("text");
 
                     b.Property<Guid?>("ImageId")
                         .HasColumnType("uuid");
@@ -78,6 +185,35 @@ namespace AssoInternesBrest.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("AssoInternesBrest.API.Entities.GuidePage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.ToTable("GuidePages");
+                });
+
             modelBuilder.Entity("AssoInternesBrest.API.Entities.Image", b =>
                 {
                     b.Property<Guid>("Id")
@@ -105,6 +241,77 @@ namespace AssoInternesBrest.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("AssoInternesBrest.API.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("InvitationToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("InvitationTokenExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("AssoInternesBrest.API.Entities.Article", b =>
+                {
+                    b.HasOne("AssoInternesBrest.API.Entities.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssoInternesBrest.API.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("AssoInternesBrest.API.Entities.BureauMember", b =>
+                {
+                    b.HasOne("AssoInternesBrest.API.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("AssoInternesBrest.API.Entities.Event", b =>

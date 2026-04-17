@@ -23,5 +23,7 @@ namespace AssoInternesBrest.API.DTOs.Events
         public int? Capacity { get; set; }
 
         public Guid? ImageId { get; set; }
+
+        public string? HelloAssoUrl { get; set; }
     }
 }

@@ -26,5 +26,7 @@ namespace AssoInternesBrest.API.DTOs.Events
         public Guid? ImageId { get; set; }
 
         public bool IsPublished { get; set; }
+
+        public string? HelloAssoUrl { get; set; }
     }
 }

@@ -53,6 +53,7 @@ namespace AssoInternesBrest.API.Services
             entity.Capacity = dto.Capacity;
             entity.ImageId = dto.ImageId;
             entity.IsPublished = dto.IsPublished;
+            entity.HelloAssoUrl = dto.HelloAssoUrl;
             entity.UpdatedAt = DateTime.UtcNow;
 
             await _repository.UpdateAsync(entity);

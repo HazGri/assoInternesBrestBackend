@@ -39,6 +39,16 @@ namespace AssoInternesBrest.API.Controllers
             );
         }
 
+        [HttpPut("{id}")]
+        [Authorize(Policy = "BureauOrAdmin")]
+        public async Task<ActionResult<EventDto>> UpdateEvent(Guid id, UpdateEventDto dto)
+        {
+            EventDto? updated = await _eventService.UpdateEventAsync(id, dto);
+            if (updated == null)
+                return NotFound();
+            return Ok(updated);
+        }
+
         [HttpDelete("{id}")]
         [Authorize(Policy = "BureauOrAdmin")]
         public async Task<ActionResult> DeleteEvent(Guid id)

@@ -1,4 +1,4 @@
-﻿using AssoInternesBrest.API.DTOs.Events;
+using AssoInternesBrest.API.DTOs.Events;
 using AssoInternesBrest.API.Entities;
 using AssoInternesBrest.API.Repositories;
 using AssoInternesBrest.API.Utils;
@@ -13,68 +13,73 @@ namespace AssoInternesBrest.API.Services
 
         public async Task<IEnumerable<EventDto>> GetAllEventsAsync()
         {
-            var events = await _repository.GetAllAsync();
-
+            IEnumerable<Event> events = await _repository.GetAllAsync();
             return _mapper.Map<IEnumerable<EventDto>>(events);
         }
 
         public async Task<EventDto?> GetEventBySlugAsync(string slug)
         {
-            var entity = await _repository.GetBySlugAsync(slug);
-
+            Event? entity = await _repository.GetBySlugAsync(slug);
             if (entity == null)
                 return null;
-
             return _mapper.Map<EventDto>(entity);
         }
 
         public async Task<EventDto> CreateEventAsync(CreateEventDto dto)
         {
-            var entity = _mapper.Map<Event>(dto);
-
+            Event entity = _mapper.Map<Event>(dto);
             entity.Id = Guid.NewGuid();
             entity.CreatedAt = DateTime.UtcNow;
             entity.UpdatedAt = DateTime.UtcNow;
             entity.StartDate = DateTime.SpecifyKind(dto.StartDate, DateTimeKind.Utc);
-
             if (dto.EndDate.HasValue)
-            {
                 entity.EndDate = DateTime.SpecifyKind(dto.EndDate.Value, DateTimeKind.Utc);
-            }
-
-            entity.Slug = await GenerateUniqueSlug(dto.Title);
-
-            var created = await _repository.AddAsync(entity);
-
+            entity.Slug = await GenerateUniqueSlugAsync(dto.Title);
+            Event created = await _repository.AddAsync(entity);
             return _mapper.Map<EventDto>(created);
+        }
+
+        public async Task<EventDto?> UpdateEventAsync(Guid id, UpdateEventDto dto)
+        {
+            Event? entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+                return null;
+
+            entity.Title = dto.Title;
+            entity.Description = dto.Description;
+            entity.StartDate = DateTime.SpecifyKind(dto.StartDate, DateTimeKind.Utc);
+            entity.EndDate = dto.EndDate.HasValue ? DateTime.SpecifyKind(dto.EndDate.Value, DateTimeKind.Utc) : null;
+            entity.Location = dto.Location;
+            entity.Capacity = dto.Capacity;
+            entity.ImageId = dto.ImageId;
+            entity.IsPublished = dto.IsPublished;
+            entity.UpdatedAt = DateTime.UtcNow;
+
+            await _repository.UpdateAsync(entity);
+            return _mapper.Map<EventDto>(entity);
         }
 
         public async Task UpdateEventAsync(Event entity)
         {
             entity.UpdatedAt = DateTime.UtcNow;
-
             await _repository.UpdateAsync(entity);
         }
 
         public async Task<bool> DeleteEventAsync(Guid id)
         {
-            bool isDelete = await _repository.DeleteAsync(id);
-            return isDelete;
+            return await _repository.DeleteAsync(id);
         }
 
-        private async Task<string> GenerateUniqueSlug(string title)
+        private async Task<string> GenerateUniqueSlugAsync(string title)
         {
-            var baseSlug = SlugGenerator.Generate(title);
-            var slug = baseSlug;
-
+            string baseSlug = SlugGenerator.Generate(title);
+            string slug = baseSlug;
             int counter = 2;
-
             while (await _repository.SlugExistsAsync(slug))
             {
                 slug = $"{baseSlug}-{counter}";
                 counter++;
             }
-
             return slug;
         }
     }

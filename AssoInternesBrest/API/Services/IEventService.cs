@@ -11,6 +11,8 @@ namespace AssoInternesBrest.API.Services
 
         Task<EventDto> CreateEventAsync(CreateEventDto entity);
 
+        Task<EventDto?> UpdateEventAsync(Guid id, UpdateEventDto dto);
+
         Task UpdateEventAsync(Event entity);
 
         Task<bool> DeleteEventAsync(Guid id);

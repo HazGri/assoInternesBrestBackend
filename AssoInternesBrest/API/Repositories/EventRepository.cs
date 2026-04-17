@@ -17,6 +17,11 @@ namespace AssoInternesBrest.API.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Event?> GetByIdAsync(Guid id)
+        {
+            return await _context.Events.Include(e => e.Image).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
         public async Task<Event?> GetBySlugAsync(string slug)
         {
             return await _context
@@ -40,7 +45,7 @@ namespace AssoInternesBrest.API.Repositories
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var eventEntity = await _context.Events.FindAsync(id);
+            Event? eventEntity = await _context.Events.FindAsync(id);
 
             if (eventEntity != null)
             {

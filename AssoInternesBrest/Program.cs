@@ -17,6 +17,7 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<EventProfile>();
     cfg.AddProfile<ArticleProfile>();
+    cfg.AddProfile<BureauMemberProfile>();
 });
 
 builder.Services.AddCors(options =>
@@ -68,6 +69,8 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<IBureauMemberRepository, BureauMemberRepository>();
+builder.Services.AddScoped<IBureauMemberService, BureauMemberService>();
 
 builder.Services.AddOpenApi();
 

@@ -13,7 +13,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<EventProfile>());
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<EventProfile>();
+    cfg.AddProfile<ArticleProfile>();
+});
 
 builder.Services.AddCors(options =>
 {
@@ -62,6 +66,8 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 builder.Services.AddOpenApi();
 

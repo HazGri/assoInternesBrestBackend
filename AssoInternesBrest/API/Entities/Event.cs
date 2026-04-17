@@ -26,6 +26,8 @@ namespace AssoInternesBrest.API.Entities
 
         public bool IsPublished { get; set; } = true;
 
+        public string? HelloAssoUrl { get; set; }
+
         public Guid CreatedBy { get; set; }
 
         public DateTime CreatedAt { get; set; }

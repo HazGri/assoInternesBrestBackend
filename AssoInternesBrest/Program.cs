@@ -1,11 +1,14 @@
+using System.Text;
 using AssoInternesBrest.API.Data;
 using AssoInternesBrest.API.Mappings;
 using AssoInternesBrest.API.Repositories;
 using AssoInternesBrest.API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -24,7 +27,30 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Add services to the container.
+string jwtSecret = builder.Configuration["Jwt:Secret"]!;
+string jwtIssuer = builder.Configuration["Jwt:Issuer"]!;
+string jwtAudience = builder.Configuration["Jwt:Audience"]!;
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
+            ValidateIssuer = true,
+            ValidIssuer = jwtIssuer,
+            ValidateAudience = true,
+            ValidAudience = jwtAudience,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("BureauOrAdmin", policy => policy.RequireRole("Bureau", "Admin"))
+    .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
@@ -33,21 +59,22 @@ builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddOpenApi();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-app.UseCors("AllowFrontend");
 
+app.UseCors("AllowFrontend");
 app.UseStaticFiles();
 
-var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
+string uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
 if (!Directory.Exists(uploadsPath)) Directory.CreateDirectory(uploadsPath);
 
 app.UseStaticFiles(new StaticFileOptions
@@ -57,9 +84,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

@@ -74,6 +74,8 @@ builder.Services.AddScoped<IBureauMemberRepository, BureauMemberRepository>();
 builder.Services.AddScoped<IBureauMemberService, BureauMemberService>();
 builder.Services.AddScoped<IGuidePageRepository, GuidePageRepository>();
 builder.Services.AddScoped<IGuidePageService, GuidePageService>();
+builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
+builder.Services.AddScoped<IAppSettingService, AppSettingService>();
 
 builder.Services.AddOpenApi();
 

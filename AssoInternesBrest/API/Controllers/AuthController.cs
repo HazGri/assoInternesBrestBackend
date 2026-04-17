@@ -1,5 +1,8 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using AssoInternesBrest.API.DTOs.Auth;
 using AssoInternesBrest.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssoInternesBrest.API.Controllers
@@ -25,6 +28,24 @@ namespace AssoInternesBrest.API.Controllers
             bool success = await _authService.ActivateAsync(dto.Token, dto.NewPassword);
             if (!success)
                 return BadRequest("Token invalide ou expiré.");
+            return Ok();
+        }
+
+        [HttpPost("change-password")]
+        [Authorize]
+        public async Task<ActionResult> ChangePassword(ChangePasswordDto dto)
+        {
+            string? sub = User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+                ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (sub == null || !Guid.TryParse(sub, out Guid userId))
+                return Unauthorized();
+
+            bool success = await _authService.ChangePasswordAsync(
+                userId, dto.CurrentPassword, dto.NewPassword);
+
+            if (!success)
+                return BadRequest(new { message = "Mot de passe actuel incorrect." });
+
             return Ok();
         }
     }

@@ -69,5 +69,18 @@ namespace AssoInternesBrest.API.Services
             await _userRepository.UpdateAsync(user);
             return true;
         }
+
+        public async Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword)
+        {
+            User? user = await _userRepository.GetByIdAsync(userId);
+            if (user == null || !user.IsActive)
+                return false;
+            if (!_passwordService.Verify(currentPassword, user.PasswordHash))
+                return false;
+
+            user.PasswordHash = _passwordService.HashPassword(newPassword);
+            await _userRepository.UpdateAsync(user);
+            return true;
+        }
     }
 }

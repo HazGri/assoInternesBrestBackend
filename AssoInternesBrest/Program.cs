@@ -81,6 +81,8 @@ builder.Services.AddOpenApi();
 
 WebApplication app = builder.Build();
 
+await SeedData.SeedInitialAdminAsync(app.Services, builder.Configuration);
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

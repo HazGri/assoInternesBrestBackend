@@ -28,4 +28,11 @@
     <Folder Include="uploads\events\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="AssoInternesBrest.Tests\**" />
+    <Content Remove="AssoInternesBrest.Tests\**" />
+    <EmbeddedResource Remove="AssoInternesBrest.Tests\**" />
+    <None Remove="AssoInternesBrest.Tests\**" />
+  </ItemGroup>
+
 </Project>

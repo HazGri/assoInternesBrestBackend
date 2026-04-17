@@ -8,9 +8,13 @@ namespace AssoInternesBrest.API.Mappings
     {
         public BureauMemberProfile()
         {
-            CreateMap<BureauMember, BureauMemberDto>();
+            CreateMap<BureauMember, BureauMemberDto>()
+                .ForMember(dest => dest.ImageUrl,
+                    opt => opt.MapFrom(src => src.Image != null ? src.Image.FilePath : null));
+
             CreateMap<CreateBureauMemberDto, BureauMember>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Image, opt => opt.Ignore());
         }
     }
 }

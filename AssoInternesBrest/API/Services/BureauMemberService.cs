@@ -34,6 +34,7 @@ namespace AssoInternesBrest.API.Services
             member.Role = dto.Role;
             member.Email = dto.Email;
             member.DisplayOrder = dto.DisplayOrder;
+            member.ImageId = dto.ImageId;
             await _repository.UpdateAsync(member);
             return _mapper.Map<BureauMemberDto>(member);
         }

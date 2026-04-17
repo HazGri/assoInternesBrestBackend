@@ -87,6 +87,7 @@ builder.Services.AddScoped<IGuidePageRepository, GuidePageRepository>();
 builder.Services.AddScoped<IGuidePageService, GuidePageService>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 builder.Services.AddScoped<IAppSettingService, AppSettingService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
 
 builder.Services.AddOpenApi();
 

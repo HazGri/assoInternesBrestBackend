@@ -8,5 +8,7 @@ namespace AssoInternesBrest.API.DTOs.BureauMembers
         public string Role { get; set; } = null!;
         public string Email { get; set; } = null!;
         public int DisplayOrder { get; set; }
+        public Guid? ImageId { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

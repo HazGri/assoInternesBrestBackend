@@ -10,12 +10,17 @@ namespace AssoInternesBrest.API.Repositories
 
         public async Task<IEnumerable<BureauMember>> GetAllOrderedAsync()
         {
-            return await _context.BureauMembers.OrderBy(b => b.DisplayOrder).ToListAsync();
+            return await _context.BureauMembers
+                .Include(b => b.Image)
+                .OrderBy(b => b.DisplayOrder)
+                .ToListAsync();
         }
 
         public async Task<BureauMember?> GetByIdAsync(Guid id)
         {
-            return await _context.BureauMembers.FindAsync(id);
+            return await _context.BureauMembers
+                .Include(b => b.Image)
+                .FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task<BureauMember> AddAsync(BureauMember member)

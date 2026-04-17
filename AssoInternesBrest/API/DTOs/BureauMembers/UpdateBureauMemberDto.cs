@@ -14,5 +14,6 @@ namespace AssoInternesBrest.API.DTOs.BureauMembers
         [EmailAddress]
         public string Email { get; set; } = null!;
         public int DisplayOrder { get; set; }
+        public Guid? ImageId { get; set; }
     }
 }

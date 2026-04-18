@@ -30,5 +30,11 @@
     "Password": "<temporary-password>",
     "FirstName": "Admin",
     "LastName": "Système"
+  },
+  "HelloAsso": {
+    "BaseUrl": "https://api.helloasso.com/v5",
+    "AuthUrl": "https://api.helloasso.com/oauth2/token",
+    "ClientId": "<helloasso-client-id>",
+    "ClientSecret": "<helloasso-client-secret>"
   }
 }
